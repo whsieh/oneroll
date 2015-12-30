@@ -94,7 +94,7 @@ MessagingController.prototype.isReady = function() {
 
 MessagingController.prototype.handshake = function() {
     var $this = this;
-    var socket = io.connect(window.location.protocol + "//" + window.location.hostname + ":" + this.port);
+    var socket = io.connect();
     socket.on("server_request_name", function() {
         socket.emit("client_name_response", $this.name);
     });

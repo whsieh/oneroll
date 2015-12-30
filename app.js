@@ -1,9 +1,11 @@
 var express = require("express");
-var bodyParser = require("body-parser");
 var app = express();
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
-var SOCKET_IO_PORT = 3001;
+var server = require("http").createServer(app);
+var bodyParser = require("body-parser");
+var io = require("socket.io").listen(server);
+
+SERVER_PORT = process.env.PORT || 3000;
+server.listen(SERVER_PORT);
 
 // Pending names are mapped to null.
 var nameToSocketIdMap = {}
@@ -19,8 +21,7 @@ app.get("/join", function(request, result) {
     var requestedName = String(request.query.name).trim();
     if (requestedName in nameToSocketIdMap) {
         result.json({
-            success: false,
-            port: SOCKET_IO_PORT
+            success: false
         });
         return;
     }
@@ -28,15 +29,13 @@ app.get("/join", function(request, result) {
     nameToSocketIdMap[requestedName] = null;
     result.json({
         success: true,
-        port: SOCKET_IO_PORT
+        port: SERVER_PORT
     });
 });
 
 app.get("/main", function(request, result) {
     result.sendFile("main.html", { root: "./public" });
 });
-
-io.listen(SOCKET_IO_PORT);
 
 // Server-side handshaking.
 io.on("connection", function(socket) {
@@ -89,6 +88,5 @@ io.on("connection", function(socket) {
 
     socket.emit("server_request_name");
 });
-
 
 module.exports = app;
