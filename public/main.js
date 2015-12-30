@@ -136,17 +136,26 @@ function TranscriptController(rollHistoryElementId) {
 }
 
 TranscriptController.prototype.updateHistoryVisibility = function() {
-    if (this.showDetails)
-        $(".history-detail").css({ display: "block" });
-    else
-        $(".history-detail").css({ display: "none" });
+    var showOwnHistoryOnly = this.showOwnHistoryOnly;
+    var showDetails = this.showDetails;
+    function displayValueForItem(historyItem) {
+        var classes = historyItem.classList;
+        if (classes.contains("not-own-history") && showOwnHistoryOnly)
+            return "none";
 
-    if (this.showOwnHistoryOnly) {
-        $(".not-own-history").css({ display: "none" });
-        $(".participant-joined").css({ display: "none" });
-    } else {
-        $(".not-own-history").css({ display: "block" });
-        $(".participant-joined").css({ display: "block" });
+        if (classes.contains("participant-joined") && showOwnHistoryOnly)
+            return "none";
+
+        if (classes.contains("history-detail") && !showDetails)
+            return "none";
+
+        return "block";
+    }
+
+    var transcriptChildren = $("#roll-transcript").children();
+    for (var i = 0; i < transcriptChildren.length; i++) {
+        var childItem = transcriptChildren[i];
+        childItem.style.display = displayValueForItem(childItem);
     }
 }
 
