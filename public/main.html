@@ -1,0 +1,38 @@
+<html>
+<head>
+    <meta name="viewport" content="width = device-width, initial-scale=1.0, maximum-scale=1.4"></meta>
+    <title>Roll Scroll!</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Code+Pro">
+    <script src="lib/js.cookie.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div id="top">
+        <div id="roll-picker">
+            <div id="add-card">
+                <a id="new-roll-link">Add a new roll</a>
+            </div>
+        </div>
+        <div id="dice-picker">
+            <div class="die" id="1d4">4</div>
+            <div class="die" id="1d6">6</div>
+            <div class="die" id="1d8">8</div>
+            <div class="die" id="1d12">12</div>
+            <div class="die" id="1d20">20</div>
+        </div>
+    </div>
+    <div id="bottom">
+        <div id="roll-transcript-actions">
+            <input id="own-history-button" class="toggle-inactive" type="button" value="My rolls only"></input>
+            <input id="detailed-history-button" class="toggle-inactive" type="button" value="Show details"></input>
+            <input id="clear-history-button" type="button" value="Clear output"></input>
+        </div>
+        <div id="roll-transcript"></div>
+    </div>
+</body>
+
+</html>

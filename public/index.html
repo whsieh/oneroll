@@ -1,0 +1,108 @@
+<html>
+<head>
+    <meta name="viewport" content="width = device-width"></meta>
+    <title>Roll Scroll!</title>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Code+Pro">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+    <script>
+        function requestName(name) {
+            $.getJSON("/join?name=" + name).success(function(res) {
+                if (res.success)
+                    window.location.href = "/main?name=" + name + "&port=" + res.port
+                else
+                    setErrorMessage("That name is already taken. Please enter a new name.");
+
+            }).error(function() {
+                setErrorMessage("Some interwebs bullshit happened. Maybe check your connection?");
+            });
+        }
+
+        function setErrorMessage(text) {
+            $("#error").text(text);
+        }
+
+        $(function() {
+            function attemptNameRequestFromNameField() {
+                var name = $("#name").val();
+                if (!name.length) {
+                    setErrorMessage("You can't be nameless. Enter a name in the field above.");
+                    return;
+                }
+
+                requestName(name);
+            }
+
+            $("#name").keypress(function(e) {
+                if (e.which == 13)
+                    attemptNameRequestFromNameField();
+            });
+
+            $("#submit").click(function () {
+                attemptNameRequestFromNameField();
+            });
+        });
+
+    </script>
+
+    <style>
+        body {
+            background-color: #FEFEFE;
+            font-family: "Source Sans Pro", sans-serif;
+            text-align: center;
+        }
+
+        #name {
+            margin-top: 35vh;
+            width: calc(20vw + 100px);
+            height: 5vh;
+            border: none;
+            border-bottom: 1px dashed gray;
+            text-align: center;
+            margin-bottom: 4vh;
+            font-size: 20px;
+        }
+
+        #submit {
+            font-family: "Source Sans Pro", sans-serif;
+            width: 100px;
+            height: 5vh;
+            border: none;
+            font-size: 16px;
+            background-color: black;
+            margin-bottom: 2vh;
+            color: white;
+        }
+
+        input:focus {
+            outline: 0;
+        }
+
+        #error {
+            color: red;
+        }
+
+        input[type="text"] {
+            outline: none;
+            border-radius: 0;
+        }
+
+        input {
+            -webkit-appearance: none;
+        }
+    </style>
+</head>
+
+
+
+
+
+
+<body>
+    <input id="name" type="text" placeholder="Enter your name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></input>
+    <br>
+    <input id="submit" type="button" value="Join"></input>
+    <p id="error"></p>
+</body>
+
+</html>
