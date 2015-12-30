@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
+ * Just use node app.js instead of ./bin/www
  */
 
 var app = require('../app');

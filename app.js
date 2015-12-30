@@ -20,9 +20,7 @@ app.get("/", function(request, result) {
 app.get("/join", function(request, result) {
     var requestedName = String(request.query.name).trim();
     if (requestedName in nameToSocketIdMap) {
-        result.json({
-            success: false
-        });
+        result.json({ success: false });
         return;
     }
 
@@ -44,18 +42,19 @@ io.on("connection", function(socket) {
             if (nameToSocketIdMap[name] !== socket.id)
                 continue;
 
-            nameToSocketIdMap[name] = null;
+            nameToSocketIdMap[name] = "";
             setTimeout(function() {
                 // If the client refreshes, don't remove the client immediately.
                 // Instead, set a timer for the client to reconnect.
-                if (nameToSocketIdMap[name] == null)
+                if (nameToSocketIdMap[name] == "") {
+                    console.log(name + " disconnected.");
                     delete nameToSocketIdMap[name]
+                }
             }, 5000);
         }
     });
 
     socket.on("client_broadcasted_roll", function(objStr) {
-
         var parsedObject;
         try {
             parsedObject = JSON.parse(objStr);
@@ -82,8 +81,17 @@ io.on("connection", function(socket) {
     });
 
     socket.on("client_name_response", function(name) {
+        // Only broadcast new members if they aren't rejoining the room
+        // immediately after disconnecting.
+        var broadcastJoinToAll = nameToSocketIdMap[name] == null;
         nameToSocketIdMap[name] = socket.id;
-        io.emit("server_handshaking_complete", name);
+        if (broadcastJoinToAll) {
+            io.emit("server_handshaking_complete", name);
+            console.log(name + " connected.");
+        } else {
+            socket.emit("server_handshaking_complete", name);
+            console.log(name + " reconnected.");
+        }
     });
 
     socket.emit("server_request_name");

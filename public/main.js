@@ -133,6 +133,7 @@ function TranscriptController(rollHistoryElementId) {
     this.transcriptElement = $(rollHistoryElementId)[0];
     this.showDetails = false;
     this.showOwnHistoryOnly = false;
+    this.seenNames = {};
 }
 
 TranscriptController.prototype.updateHistoryVisibility = function() {
@@ -184,11 +185,12 @@ TranscriptController.prototype.toggleShowOwnHistoryOnly = function() {
 }
 
 TranscriptController.prototype.appendNewParticipant = function(participantName, myName) {
+    var joinText = (participantName in this.seenNames) ? "rejoined" : "joined";
     var participantMessage;
     if (myName === participantName)
-        participantMessage = "You joined the room as " + myName + ".";
+        participantMessage = "You " + joinText + " the room as " + myName + ".";
     else
-        participantMessage = participantName + " joined the room.";
+        participantMessage = participantName + " " + joinText + " the room.";
 
     var participantMessageElement = $("<p>", { class: "participant-joined history-main" });
     participantMessageElement.text(participantMessage);
@@ -198,6 +200,8 @@ TranscriptController.prototype.appendNewParticipant = function(participantName, 
 
     participantMessageElement.css({ opacity: 0 });
     participantMessageElement.animate({ opacity: 1 }, 350);
+
+    this.seenNames[participantName] = null;
 }
 
 TranscriptController.prototype.appendRollResult = function(parts, name, userName) {

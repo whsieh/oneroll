@@ -74,7 +74,7 @@ input {
 #roll-picker {
     background-color: #F8F8F8;
     width: calc(100% - 80px);
-    height: 60vh;
+    height: 50vh;
     overflow-x: hidden;
     overflow-y: auto;
     white-space: nowrap;
@@ -169,7 +169,7 @@ input {
 
 #bottom {
     width: 100vw;
-    height: 40vh;
+    height: 50vh;
     background-color: #F8F8F8;
     border-top: 1px white solid;
 }
@@ -184,12 +184,18 @@ input {
     margin: 10px;
 }
 
+#roll-transcript > p:last-child {
+    margin-bottom: 25px;
+}
+
 .history-main {
     font-size: 12px;
 }
 
 .participant-joined {
+    font-size: 10px !important;
     text-align: center;
+    color: #666;
 }
 
 .history-detail {
