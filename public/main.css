@@ -45,7 +45,6 @@ input {
     font-family: "Source Sans Pro", sans-serif;
     width: 50px;
     font-size: 10px;
-    /*border-radius: 4px;*/
     margin: 0 auto;
     height: 22px;
 }
@@ -77,7 +76,7 @@ input {
     width: calc(100% - 80px);
     height: 50vh;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
@@ -112,6 +111,7 @@ input {
 }
 
 #add-card {
+    font-family: "Source Sans Pro", sans-serif;
     margin: 10px auto;
     width: calc(100% - 20px);
     height: 75px;
@@ -177,6 +177,7 @@ input {
     width: 100%;
     text-align: left;
     margin: 10px;
+    font-family: "Alegreya", sans-serif;
 }
 
 #roll-transcript > p:last-child {
@@ -212,7 +213,6 @@ input {
 #own-history-button {
     font-family: "Source Sans Pro", sans-serif;
     font-size: 10px;
-    /*border-radius: 4px;*/
     width: 90px;
 }
 
