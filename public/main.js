@@ -288,13 +288,21 @@ RollController.prototype.appendCard = function(name, details) {
     var nameField = $("<input>", {
         type: "text",
         placeholder: "Roll name",
+        autocomplete: "off",
+        autocorrect: "off",
+        autocapitalize: "off",
+        spellcheck: "false",
         class: "roll-card-title",
         value: name
     });
 
     var detailsField = $("<input>", {
         type: "text",
-        placeholder: "Roll details",
+        placeholder: "xdy+C",
+        autocomplete: "off",
+        autocorrect: "off",
+        autocapitalize: "off",
+        spellcheck: "false",
         class: "roll-card-details",
         value: details
     });
@@ -435,9 +443,23 @@ $(function() {
     for (var i = 0; i < controls.length; i++)
         registerElementForFastClick(controls[i]);
 
-    // Load locally cached information.
-    rollController.loadFromLocalCache();
+    var isScrollingToTop = false;
+    $("#scroll-to-top").click(function() {
+        isScrollingToTop = true;
+        $(document.body).animate({ scrollTop : 0 }, 350, function() {
+            isScrollingToTop = false;
+        });
+        $("#scroll-to-top").fadeOut(500);
+    });
 
-    // Connect to the server and handshake.
+    setInterval(function() {
+        if ($(document.body).scrollTop() > $("#roll-transcript-actions").offset().top && !isScrollingToTop)
+            $("#scroll-to-top").fadeIn(500);
+        else
+            $("#scroll-to-top").fadeOut(500);
+    }, 1000);
+
+    // Miscellaneous initialization.
+    rollController.loadFromLocalCache();
     messagingController.handshake();
 });

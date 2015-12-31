@@ -1,13 +1,14 @@
 
 html {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 body {
     font-family: "Source Sans Pro", sans-serif;
     text-align: center;
+    background-color: #F8F8F8;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 input[type="text"] {
@@ -17,6 +18,7 @@ input[type="text"] {
 
 input {
     -webkit-appearance: none;
+    border-radius: 0;
 }
 
 .roll-card-title,
@@ -43,7 +45,7 @@ input {
     font-family: "Source Sans Pro", sans-serif;
     width: 50px;
     font-size: 10px;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     margin: 0 auto;
     height: 22px;
 }
@@ -72,7 +74,6 @@ input {
 }
 
 #roll-picker {
-    background-color: #F8F8F8;
     width: calc(100% - 80px);
     height: 50vh;
     overflow-x: hidden;
@@ -142,7 +143,6 @@ input {
 
 #dice-picker {
     padding-top: 10px;
-    background-color: #F8F8F8;
     width: 80px;
     display: flex;
     flex-direction: column;
@@ -169,23 +169,18 @@ input {
 
 #bottom {
     width: 100vw;
-    height: 50vh;
-    background-color: #F8F8F8;
     border-top: 1px white solid;
+    padding-top: 10px;
 }
 
 #roll-transcript {
     width: 100%;
-    height: calc(100% - 25px);
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     text-align: left;
     margin: 10px;
 }
 
 #roll-transcript > p:last-child {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .history-main {
@@ -217,7 +212,7 @@ input {
 #own-history-button {
     font-family: "Source Sans Pro", sans-serif;
     font-size: 10px;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     width: 90px;
 }
 
@@ -251,4 +246,21 @@ input {
 #clear-history-button:active {
     color: white;
     background-color: red;
+}
+
+#scroll-to-top {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    font-size: 10px;
+    display: none;
+    border: 1px solid black;
+    padding: 5px;
+    background-color: white;
+    color: black;
+}
+
+#scroll-to-top:active {
+    background-color: black;
+    color: white;
 }
